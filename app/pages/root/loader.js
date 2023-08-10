@@ -11,8 +11,6 @@ export default async function ({ params, request, context}) {
       getShopInfos(context.storefront),
       getCart(context.storefront, request)
     ]);
-
-    console.log(context.session.get('cart'))
   
     const locale = params.locale
   

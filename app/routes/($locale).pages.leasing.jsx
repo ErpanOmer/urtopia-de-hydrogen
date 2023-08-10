@@ -1,7 +1,7 @@
 import { defer } from '@shopify/remix-oxygen';
 
 export { default } from '~/pages/leasing/index.jsx'
-import { cssBundleHref } from '@remix-run/css-bundle';
+// import { cssBundleHref } from '@remix-run/css-bundle';
 
 export const handle = {
     seo: v => {
@@ -15,12 +15,12 @@ export const handle = {
 
 export const loader = (...args) => defer({})
 
-export const links = () => [
-    ...(cssBundleHref ? [
-        { rel: "preload" , as: "text/css", href: cssBundleHref },
-        { rel: "stylesheet" , href: cssBundleHref },
-    ] : [cssBundleHref])
-]
+// export const links = () => [
+//     ...(cssBundleHref ? [
+//         { rel: "preload" , as: "text/css", href: cssBundleHref },
+//         { rel: "stylesheet" , href: cssBundleHref },
+//     ] : [cssBundleHref])
+// ]
 
 export const meta = () => {
     return 
