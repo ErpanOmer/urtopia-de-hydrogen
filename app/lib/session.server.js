@@ -25,7 +25,6 @@ export class HydrogenSession {
     });
 
     const session = await storage.getSession(request.headers.get('Cookie'));
-
     return new this(storage, session);
   }
 

@@ -1,6 +1,6 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Suspense} from 'react';
-import {Await, useLoaderData} from '@remix-run/react';
+import {Await, useLoaderData, useMatches} from '@remix-run/react';
 import {AnalyticsPageType} from '@shopify/hydrogen';
 
 import {ProductSwimlane, FeaturedCollections, Hero} from '~/components';
@@ -11,17 +11,19 @@ import {routeHeaders} from '~/data/cache';
 
 export const headers = routeHeaders;
 
+export const handle = {
+  seo: v => {
+
+    return {
+      title: 'Home Page'
+    }
+  }
+}
+
 export async function loader({params, context}) {
   const {language, country} = context.storefront.i18n;
 
-  if (
-    params.locale &&
-    params.locale.toLowerCase() !== `${language}-${country}`.toLowerCase()
-  ) {
-    // If the locale URL param is defined, yet we still are on `EN-US`
-    // the the locale param must be invalid, send to the 404 page
-    throw new Response(null, {status: 404});
-  }
+  
 
   const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
     variables: {handle: 'freestyle'},
@@ -30,6 +32,7 @@ export async function loader({params, context}) {
   const seo = seoPayload.home();
 
   return defer({
+    arguments,
     shop,
     primaryHero: hero,
     // These different queries are separated to illustrate how 3rd party content
@@ -71,7 +74,7 @@ export async function loader({params, context}) {
     analytics: {
       pageType: AnalyticsPageType.home,
     },
-    seo,
+    //seo,
   });
 }
 
@@ -82,8 +85,8 @@ export default function Homepage() {
     tertiaryHero,
     featuredCollections,
     featuredProducts,
+    arguments: xxx,
   } = useLoaderData();
-
   // TODO: skeletons vs placeholders
   const skeletons = getHeroPlaceholder([{}, {}, {}]);
 

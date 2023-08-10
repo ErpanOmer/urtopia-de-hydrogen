@@ -4,10 +4,10 @@ import {
   createRequestHandler,
   getStorefrontHeaders,
 } from '@shopify/remix-oxygen';
-import {createStorefrontClient, storefrontRedirect} from '@shopify/hydrogen';
+import { createStorefrontClient, storefrontRedirect } from '@shopify/hydrogen';
 
-import {HydrogenSession} from '~/lib/session.server';
-import {getLocaleFromRequest} from '~/lib/utils';
+import { HydrogenSession } from '~/lib/session.server';
+import { getLocaleFromRequest } from '~/lib_v2/locale';
 
 /**
  * Export a fetch handler in module format.

@@ -8,7 +8,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        xxxx: '#333',
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
         contrast: 'rgb(var(--color-contrast) / <alpha-value>)',
         notice: 'rgb(var(--color-accent) / <alpha-value>)',

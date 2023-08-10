@@ -230,25 +230,9 @@ export function assertApiErrors(data) {
 }
 
 export const DEFAULT_LOCALE = Object.freeze({
-  ...countries.default,
-  pathPrefix: '',
-});
-
-export function getLocaleFromRequest(request) {
-  const url = new URL(request.url);
-  const firstPathPart =
-    '/' + url.pathname.substring(1).split('/')[0].toLowerCase();
-
-  return countries[firstPathPart]
-    ? {
-        ...countries[firstPathPart],
-        pathPrefix: firstPathPart,
-      }
-    : {
-        ...countries['default'],
-        pathPrefix: '',
-      };
-}
+  language: 'DE',
+  pathPrefix: ''
+})
 
 export function usePrefixPathWithLocale(path) {
   const [root] = useMatches();
@@ -295,4 +279,27 @@ export function isLocalPath(url) {
 export function getCartId(request) {
   const cookies = parseCookie(request.headers.get('Cookie') || '');
   return cookies.cart ? `gid://shopify/Cart/${cookies.cart}` : undefined;
+}
+
+// 获取用户 当前ip是哪个国家的, 默认DE
+export async function getCountry(session) {
+  const country = await session.get('country')
+
+  // 如果存在直接返回
+  if (country) {
+    return country
+  }
+
+  try {
+    let response = await fetch("https://ipinfo.io/json?token=f52f8a08ee5ac8")
+    response = await response.json()
+
+    console.log('response', response)
+
+    await session.set('country', response.country)
+    return response.country
+  } catch (error) {
+    console.log(error)
+    return 'DE' 
+  }
 }

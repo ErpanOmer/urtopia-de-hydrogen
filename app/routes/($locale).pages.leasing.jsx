@@ -3,12 +3,17 @@ import { defer } from '@shopify/remix-oxygen';
 export { default } from '~/pages/leasing/index.jsx'
 import { cssBundleHref } from '@remix-run/css-bundle';
 
-export const loader = (...args) => defer({
-    seo:  { 
-        title: "leasing",
-        titleTemplate: '%s | Page',
+export const handle = {
+    seo: v => {
+        console.log('v', v)
+
+        return {
+            title: 'x'
+        }
     }
-})
+}
+
+export const loader = (...args) => defer({})
 
 export const links = () => [
     ...(cssBundleHref ? [

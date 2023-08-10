@@ -1,4 +1,4 @@
-export async function loader() {
+export async function loader(...a) {
   throw new Response('Not found', {status: 404});
 }
 
